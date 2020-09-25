@@ -69,7 +69,7 @@ class Trainer():
         self.create_dirs()
         self.load_dataset()
         self.model = Im2latexModel(config.get('backbone_type'), config.get(
-            'backbone_config'), len(self.vocab), config.get('head'))
+            'backbone_config'), len(self.vocab), config.get('head'), config.get('head_type'))
         if self.model_path is not None:
             self.model.load_weights(self.model_path, old_model=config.get("old_model"))
 
@@ -93,7 +93,7 @@ class Trainer():
         )
         train_sampler = BatchRandomSampler(
             dataset=train_dataset, batch_size=self.config.get('batch_size', 4))
-        batch_transform_train = create_list_of_transforms(self.val_transforms_list)
+        batch_transform_train = create_list_of_transforms(self.train_transforms_list)
         self.train_loader = DataLoader(
             train_dataset,
             batch_sampler=train_sampler,

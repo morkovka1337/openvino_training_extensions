@@ -1,27 +1,50 @@
 backbone_config:
-  arch: resnext101_32x8d
+  arch: resnet50
   disable_layer_3: true
   disable_layer_4: true
-  enable_last_conv: false
-  in_lstm_ch: 512
+  enable_last_conv: true
+  in_lstm_ch: 32
 backbone_type: resnet
+head_type: transformer
 batch_size: 4
-device: cuda
+device: "cuda"
 head:
+  pool_dim:
+    - 64
+    - 8
+  conv_dim: 8
+  d_model: 512
+  in_channels: 512
+  n_head: 256
   beam_width: 0
   dec_rnn_h: 512
-  emb_size: 80
+  emb_size: 200
   enc_rnn_h: 256
   in_lstm_ch: 512
   max_len: 256
   n_layer: 1
-learning_rate: 0.000001
+learning_rate: 0.0001
+train_transforms_list:
+  - name: "BatchCropPadToTGTShape"
+    target_shape:
+      - 128
+      - 1024
+val_transforms_list:
+  - name: "BatchCropPadToTGTShape"
+    target_shape:
+      - 128
+      - 1024
 log_path: /home/vloginov/work/im2latex/project/
-model_path: /media/cluster_fs/user/vloginov/im2latex_project/0169/models/accuracy_best_model_2020-04-23_08-01-13
+# model_path: /home/vloginov/work/im2latex/medium_v2/save_dir/model_epoch_1_step_4000_2020-09-24_17-23-13.pth
 optimizer: Adam
 save_dir: ../im2latex/models
 train_paths:
-- /home/vloginov/work/im2latex/medium_v2/
+  - /home/vloginov/work/im2latex/medium_v2/
 val_path: /home/vloginov/work/im2latex/medium_v2/
 vocab_path: /home/vloginov/work/im2latex/medium_v2/vocab.pkl
-old_model: true
+# train_paths:
+#   - /home/vloginov/work/openvino_training_extensions/pytorch_toolkit/formula_recognition/datasets/sample_medium_dataset
+# val_path: /home/vloginov/work/openvino_training_extensions/pytorch_toolkit/formula_recognition/datasets/sample_medium_dataset
+# vocab_path: /home/vloginov/work/openvino_training_extensions/pytorch_toolkit/formula_recognition/datasets/sample_medium_dataset/vocab.pkl
+
+# old_model: true

@@ -20,6 +20,7 @@ from collections import OrderedDict
 from .backbones.resnet import ResNetLikeBackbone
 from .backbones.original_harvard_bb import Im2LatexBackBone
 from .text_recognition_heads.attention_based import TextRecognitionHead
+from .text_recognition_heads.transformer import TransformerModel
 
 
 class Im2latexModel(nn.Module):
@@ -44,9 +45,13 @@ class Im2latexModel(nn.Module):
             return self.model.head.step_decoding(
                 hidden, context, output, row_enc_out, tgt)
 
-    def __init__(self, backbone_type, backbone, out_size, head):
+    def __init__(self, backbone_type, backbone, out_size, head, head_type):
         super().__init__()
-        self.head = TextRecognitionHead(out_size, head)
+        self.head_type = head_type
+        if self.head_type == 'attention_based':
+            self.head = TextRecognitionHead(out_size, head)
+        else:
+            self.head = TransformerModel(out_size, head)
         self.backbone_type = backbone_type
         if self.backbone_type == 'resnet':
             self.backbone = ResNetLikeBackbone(backbone)
