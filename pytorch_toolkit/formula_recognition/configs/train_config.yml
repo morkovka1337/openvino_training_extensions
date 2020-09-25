@@ -37,11 +37,11 @@ val_transforms_list:
 log_path: /home/vloginov/work/im2latex/project/
 # model_path: /home/vloginov/work/im2latex/medium_v2/save_dir/model_epoch_1_step_4000_2020-09-24_17-23-13.pth
 optimizer: Adam
-save_dir: ../im2latex/models
+save_dir: models
 train_paths:
-  - /home/vloginov/work/im2latex/medium_v2/
-val_path: /home/vloginov/work/im2latex/medium_v2/
-vocab_path: /home/vloginov/work/im2latex/medium_v2/vocab.pkl
+  - datasets/sample_medium_dataset
+val_path: datasets/sample_medium_dataset
+vocab_path: datasets/sample_medium_dataset/vocab.pkl
 # train_paths:
 #   - /home/vloginov/work/openvino_training_extensions/pytorch_toolkit/formula_recognition/datasets/sample_medium_dataset
 # val_path: /home/vloginov/work/openvino_training_extensions/pytorch_toolkit/formula_recognition/datasets/sample_medium_dataset
