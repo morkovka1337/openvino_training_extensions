@@ -38,7 +38,6 @@ SOFTWARE.
 
 import json
 import os
-import gc
 from multiprocessing.pool import ThreadPool
 from os.path import join
 
@@ -243,7 +242,6 @@ class MJSynthDataset(BaseDataset):
         if self.fixed_img_shape is not None:
             img = cv.resize(img, tuple(self.fixed_img_shape[::-1]))
         el['img'] = img
-        gc.collect()
         return el
 
     def _load(self, min_shape, case_sensitive, min_txt_len, num_workers):
