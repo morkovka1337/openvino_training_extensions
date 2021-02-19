@@ -38,6 +38,7 @@ SOFTWARE.
 
 import json
 import os
+import gc
 from multiprocessing.pool import ThreadPool
 from os.path import join
 
@@ -194,6 +195,7 @@ class ICDAR2013RECDataset(BaseDataset):
             annotation_file = f.readlines()
         annotation_file = [line.strip() for line in annotation_file]
         delimiter = ", " if ',' in annotation_file[0] else ' '
+        # TODO: do splitting in one run
         image_names = [line.split(delimiter)[0] for line in annotation_file]
         texts = [line.split(delimiter)[1] for line in annotation_file]
         pairs = []
@@ -241,6 +243,7 @@ class MJSynthDataset(BaseDataset):
         if self.fixed_img_shape is not None:
             img = cv.resize(img, tuple(self.fixed_img_shape[::-1]))
         el['img'] = img
+        gc.collect()
         return el
 
     def _load(self, min_shape, case_sensitive, min_txt_len, num_workers):
