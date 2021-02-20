@@ -38,6 +38,7 @@ SOFTWARE.
 
 import json
 import os
+from copy import deepcopy
 from multiprocessing.pool import ThreadPool
 from os.path import join
 
@@ -237,7 +238,7 @@ class MJSynthDataset(BaseDataset):
 
     def __getitem__(self, index):
 
-        el = self.pairs[index]
+        el = deepcopy(self.pairs[index])
         img = cv.imread(os.path.join(self.data_folder, el['img_path']), cv.IMREAD_COLOR)
         if self.fixed_img_shape is not None:
             img = cv.resize(img, tuple(self.fixed_img_shape[::-1]))
