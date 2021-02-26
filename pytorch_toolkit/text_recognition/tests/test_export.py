@@ -16,6 +16,7 @@
 
 import os
 import unittest
+from copy import deepcopy
 
 from im2latex.utils.exporter import Exporter
 from im2latex.utils.evaluator import Evaluator, RunnerType
@@ -74,7 +75,7 @@ def create_export_test_case(config_file, expected_outputs):
                 for model_type in ('encoder', 'decoder'):
                     self.exporter.export_to_onnx_model_if_not_yet(model=self.config.get(
                         f"res_{model_type}_name"), model_type=model_type)
-            evaluator = Evaluator(self.config, RunnerType.ONNX)
+            evaluator = Evaluator(deepcopy(self.config), RunnerType.ONNX)
             metric_onnx = evaluator.validate()
             target_metric = evaluator.expected_outputs.get("target_metric")
             self.assertGreaterEqual(metric_onnx, target_metric)
@@ -154,7 +155,7 @@ def create_export_test_case(config_file, expected_outputs):
             if use_ctc:
                 self.exporter.export_to_ir_model_if_not_yet(model=self.config.get(
                     "res_model_name"), model_type=None)
-                evaluator = Evaluator(self.config, RunnerType.OpenVINO)
+                evaluator = Evaluator(deepcopy(self.config), RunnerType.OpenVINO)
                 ir_metric = evaluator.validate()
                 target_metric = evaluator.expected_outputs.get("target_metric")
                 self.assertGreaterEqual(ir_metric, target_metric)
