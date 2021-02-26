@@ -165,7 +165,7 @@ class TransformBlur:
 
 
 class TransformShift:
-    """Shift formula randomly on x and y from a set range
+    """Shift image randomly on x and y from a set range
     """
 
     def __init__(self, shift_x, shift_y):
@@ -473,18 +473,18 @@ def get_num_lines_in_file(path):
 def collate_fn(sign2id, batch, *, batch_transform=None, use_ctc=False):
     # filter the pictures that have different width or height
     size = batch[0]['img'].shape
-    batch = [img_formula for img_formula in batch
-             if img_formula['img'].shape == size]
-    # sort by the length of formula
-    # the purpose of the sort is to put the longest formula on the first place
-    # to get correct size of the tensor in the formulas2tensor function
-    batch.sort(key=lambda img_formula: len(img_formula['text'].split()),
+    batch = [img_text for img_text in batch
+             if img_text['img'].shape == size]
+    # sort by the length of text
+    # the purpose of the sort is to put the longest text on the first place
+    # to get correct size of the tensor in the texts2tensor function
+    batch.sort(key=lambda img_text: len(img_text['text'].split()),
                reverse=True)
 
     imgs = [item['img'] for item in batch]
-    formulas = [item['text'] for item in batch]
+    texts = [item['text'] for item in batch]
     img_names = [item['img_name'] for item in batch]
-    formulas_tensor, lens = formulas2tensor(formulas, sign2id)
+    texts_tensor, lens = texts2tensor(texts, sign2id)
 
     if batch_transform:
         imgs = batch_transform(imgs)
@@ -492,12 +492,12 @@ def collate_fn(sign2id, batch, *, batch_transform=None, use_ctc=False):
 
     bsize = len(batch)
     # Ground truth symbols that are used as a decoding step input for the next symbol prediction during training.
-    training_gt = torch.cat([torch.ones(bsize, 1).long()*START_TOKEN, formulas_tensor], dim=1)
+    training_gt = torch.cat([torch.ones(bsize, 1).long()*START_TOKEN, texts_tensor], dim=1)
     # Ground truth values for the outputs of decoder. Used for loss computation.
     if use_ctc:
-        loss_computation_gt = formulas_tensor
+        loss_computation_gt = texts_tensor
     else:
-        loss_computation_gt = torch.cat([formulas_tensor, torch.ones(bsize, 1).long()*END_TOKEN], dim=1)
+        loss_computation_gt = torch.cat([texts_tensor, torch.ones(bsize, 1).long()*END_TOKEN], dim=1)
     return img_names, lens, imgs, training_gt, loss_computation_gt
 
 
@@ -515,15 +515,15 @@ def create_list_of_transforms(transforms_list, ovino_ir=False):
     return Compose(transforms)
 
 
-def formulas2tensor(formulas, sign2id):
-    """convert formula to tensor"""
-    formulas = [formula.split() for formula in formulas]
-    batch_size = len(formulas)
-    max_len = len(formulas[0])
+def texts2tensor(texts, sign2id):
+    """convert text to tensor"""
+    texts = [text.split() for text in texts]
+    batch_size = len(texts)
+    max_len = len(texts[0])
     lens = []
     tensors = torch.ones(batch_size, max_len, dtype=torch.long) * PAD_TOKEN
-    for i, formula in enumerate(formulas):
-        for j, sign in enumerate(formula):
+    for i, phrase in enumerate(texts):
+        for j, sign in enumerate(phrase):
             tensors[i][j] = sign2id.get(sign, UNK_TOKEN)
         lens.append(j + 1)
     lens = torch.tensor(lens, dtype=torch.long)
