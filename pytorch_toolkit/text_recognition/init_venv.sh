@@ -12,7 +12,7 @@ if [[ -e venv ]]; then
 fi
 
 # Create virtual environment
-virtualenv venv -p python3.7 --prompt="(im2latex)"
+virtualenv venv -p python3.7 --prompt="(text_recognition)"
 
 path_openvino_vars="${INTEL_OPENVINO_DIR:-/opt/intel/openvino}/bin/setupvars.sh"
 if [[ -e "${path_openvino_vars}" ]]; then
