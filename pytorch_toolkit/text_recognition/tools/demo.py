@@ -20,7 +20,7 @@ import os.path
 import cv2 as cv
 from im2latex.data.utils import create_list_of_transforms, ctc_greedy_search
 from im2latex.data.vocab import read_vocab
-from im2latex.models.im2latex_model import Im2latexModel
+from im2latex.models.model import Im2latexModel
 from im2latex.utils.evaluation_utils import render_routine, check_environment
 from im2latex.utils.get_config import get_config
 import torch
