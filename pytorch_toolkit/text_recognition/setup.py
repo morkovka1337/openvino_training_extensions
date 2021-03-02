@@ -16,6 +16,6 @@
 
 from setuptools import setup, find_packages
 
-setup(name='im2latex',
+setup(name='text_recognition',
       version='1.0',
       packages=find_packages())
