@@ -49,7 +49,7 @@ import torch.optim as optim
 from im2latex.data.utils import (collate_fn, create_list_of_transforms,
                                  ctc_greedy_search, get_timestamp)
 from im2latex.data.vocab import END_TOKEN, PAD_TOKEN, read_vocab
-from im2latex.datasets.im2latex_dataset import BatchRandomSampler, str_to_class
+from im2latex.datasets.dataset import BatchRandomSampler, str_to_class
 from im2latex.models.im2latex_model import Im2latexModel
 from torch.nn.utils import clip_grad_norm_
 from torch.optim.lr_scheduler import ReduceLROnPlateau

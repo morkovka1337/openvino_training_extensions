@@ -31,7 +31,7 @@ from copy import deepcopy
 from im2latex.data.utils import (collate_fn, create_list_of_transforms,
                                  ctc_greedy_search)
 from im2latex.data.vocab import END_TOKEN, START_TOKEN, read_vocab
-from im2latex.datasets.im2latex_dataset import str_to_class
+from im2latex.datasets.dataset import str_to_class
 from im2latex.models.im2latex_model import Im2latexModel
 from im2latex.utils.common import (DECODER_INPUTS, DECODER_OUTPUTS,
                                    ENCODER_INPUTS, ENCODER_OUTPUTS, read_net)
