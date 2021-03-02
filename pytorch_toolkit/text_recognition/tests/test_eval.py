@@ -49,10 +49,10 @@ class TestHandwrittenPolynomialsEvaluation(
             expected_outputs='tests/expected_outputs/formula_recognition/polynomials_handwritten_0166.json')):
     "Test case for handwritten polynomials config"
 
-class TestAlphanumeric0012Evaluation(
+class TestAlphanumeric0013Evaluation(
         create_evaluation_test_case(
-            'configs/config_0012.yml',
-            expected_outputs='tests/expected_outputs/alphanumeric/icdar13_greater3_0012.json')):
+            'configs/config_0013.yml',
+            expected_outputs='tests/expected_outputs/alphanumeric/icdar13_greater3_0013.json')):
     "Test case for handwritten polynomials config"
 
 

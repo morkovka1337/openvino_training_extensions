@@ -39,7 +39,7 @@ def create_train_test(config_file):
             self.trainer.train()
             self.assertLessEqual(self.trainer._current_loss, cur_loss)
             if os.path.exists(self.trainer.logs_path):
-                shutil.rmtree(self.trainer.logs_path)
+                shutil.rmtree(self.trainer.logs_path, ignore_errors=True)
     return TestTrain
 
 
@@ -50,6 +50,8 @@ class TestMediumRenderedTrain(create_train_test("configs/medium_config.yml")):
 class TestHandwrittenPolynomialsTrain(create_train_test('configs/polynomials_handwritten_config.yml')):
     "Test case for handwritten polynomials config"
 
+class TestAlphanumericTrain(create_train_test("configs/config_0013.yml")):
+    "Test case for alphanumeric config"
 
 if __name__ == "__main__":
     unittest.main()
