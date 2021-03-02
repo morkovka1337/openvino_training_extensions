@@ -37,11 +37,11 @@ BACKBONES = {
 }
 
 
-class Im2latexModel(nn.Module):
+class TextRecognitionModel(nn.Module):
     class EncoderWrapper(nn.Module):
-        def __init__(self, im2latex_model):
+        def __init__(self, model):
             super().__init__()
-            self.model = im2latex_model
+            self.model = model
 
         def forward(self, input_images):
             encoded = self.model.backbone(input_images)
@@ -51,9 +51,9 @@ class Im2latexModel(nn.Module):
 
     class DecoderWrapper(nn.Module):
 
-        def __init__(self, im2latex_model):
+        def __init__(self, model):
             super().__init__()
-            self.model = im2latex_model
+            self.model = model
 
         def forward(self, hidden, context, output, row_enc_out, tgt):
             return self.model.head.step_decoding(
@@ -101,8 +101,8 @@ class Im2latexModel(nn.Module):
             """)
             raise RuntimeError from missing_keys
 
-    def get_encoder_wrapper(self, im2latex_model):
-        return Im2latexModel.EncoderWrapper(im2latex_model)
+    def get_encoder_wrapper(self, model):
+        return TextRecognitionModel.EncoderWrapper(model)
 
-    def get_decoder_wrapper(self, im2latex_model):
-        return Im2latexModel.DecoderWrapper(im2latex_model)
+    def get_decoder_wrapper(self, model):
+        return TextRecognitionModel.DecoderWrapper(model)

@@ -20,7 +20,7 @@ import os.path
 import cv2 as cv
 from im2latex.data.utils import create_list_of_transforms, ctc_greedy_search
 from im2latex.data.vocab import read_vocab
-from im2latex.models.model import Im2latexModel
+from im2latex.models.model import TextRecognitionModel
 from im2latex.utils.evaluation_utils import render_routine, check_environment
 from im2latex.utils.get_config import get_config
 import torch
@@ -33,7 +33,7 @@ class Im2latexDemo:
         self.vocab = read_vocab(config.get('vocab_path'))
         self.transform = create_list_of_transforms(config.get('transforms_list'))
         self.use_ctc = self.config.get("use_ctc")
-        self.model = Im2latexModel(config.get('backbone_config'), len(self.vocab), config.get('head', {}))
+        self.model = TextRecognitionModel(config.get('backbone_config'), len(self.vocab), config.get('head', {}))
         if self.model_path is not None:
             self.model.load_weights(self.model_path, map_location=config.get('map_location', 'cpu'))
         self.model.eval()

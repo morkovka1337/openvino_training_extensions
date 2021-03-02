@@ -50,7 +50,7 @@ from im2latex.data.utils import (collate_fn, create_list_of_transforms,
                                  ctc_greedy_search, get_timestamp)
 from im2latex.data.vocab import END_TOKEN, PAD_TOKEN, read_vocab
 from im2latex.datasets.dataset import BatchRandomSampler, str_to_class
-from im2latex.models.model import Im2latexModel
+from im2latex.models.model import TextRecognitionModel
 from torch.nn.utils import clip_grad_norm_
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.utils.data import ConcatDataset, DataLoader
@@ -144,7 +144,7 @@ class Trainer:
         self.loss = torch.nn.CTCLoss(blank=0, zero_infinity=self.config.get(
             "CTCLossZeroInf", False)) if self.loss_type == "CTC" else None
         self.out_size = len(self.vocab) + 1 if self.loss_type == 'CTC' else len(self.vocab)
-        self.model = Im2latexModel(config.get('backbone_config'), self.out_size, config.get('head', {}))
+        self.model = TextRecognitionModel(config.get('backbone_config'), self.out_size, config.get('head', {}))
         if self.model_path is not None:
             self.model.load_weights(self.model_path, map_location=self.device)
         self.model = self.model.to(self.device)

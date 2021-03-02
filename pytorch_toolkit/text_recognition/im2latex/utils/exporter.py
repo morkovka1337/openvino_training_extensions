@@ -22,7 +22,7 @@ import numpy as np
 import torch
 import torch.onnx
 from im2latex.data.vocab import START_TOKEN, read_vocab
-from im2latex.models.model import Im2latexModel
+from im2latex.models.model import TextRecognitionModel
 from im2latex.utils.common import (DECODER_INPUTS, DECODER_OUTPUTS,
                                    ENCODER_INPUTS, ENCODER_OUTPUTS)
 
@@ -44,7 +44,7 @@ class Exporter:
         self.vocab = read_vocab(config.get('vocab_path'))
         self.use_ctc = self.config.get("use_ctc")
         self.out_size = len(self.vocab) + 1 if self.use_ctc else len(self.vocab)
-        self.model = Im2latexModel(config.get('backbone_config'), self.out_size, config.get('head', {}))
+        self.model = TextRecognitionModel(config.get('backbone_config'), self.out_size, config.get('head', {}))
         self.model.eval()
         if self.model_path is not None:
             self.model.load_weights(self.model_path)

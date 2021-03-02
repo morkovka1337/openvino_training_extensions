@@ -32,7 +32,7 @@ from im2latex.data.utils import (collate_fn, create_list_of_transforms,
                                  ctc_greedy_search)
 from im2latex.data.vocab import END_TOKEN, START_TOKEN, read_vocab
 from im2latex.datasets.dataset import str_to_class
-from im2latex.models.model import Im2latexModel
+from im2latex.models.model import TextRecognitionModel
 from im2latex.utils.common import (DECODER_INPUTS, DECODER_OUTPUTS,
                                    ENCODER_INPUTS, ENCODER_OUTPUTS, read_net)
 from im2latex.utils.evaluation_utils import Im2latexRenderBasedMetric
@@ -116,7 +116,7 @@ class PyTorchRunner(BaseRunner):
         self.vocab_len = len(read_vocab(self.config.get('vocab_path')))
         self.use_ctc = self.config.get("use_ctc")
         out_size = self.vocab_len + 1 if self.use_ctc else self.vocab_len
-        self.model = Im2latexModel(self.config.get('backbone_config'), out_size, self.config.get('head', {}))
+        self.model = TextRecognitionModel(self.config.get('backbone_config'), out_size, self.config.get('head', {}))
         self.device = self.config.get('device', 'cpu')
         self.model.load_weights(self.config.get("model_path"), map_location=self.device)
         self.model = self.model.to(self.device)
