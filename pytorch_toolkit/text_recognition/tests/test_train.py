@@ -18,8 +18,8 @@ import os
 import shutil
 import unittest
 
-from im2latex.utils.trainer import Trainer
-from im2latex.utils.get_config import get_config
+from text_recognition.utils.trainer import Trainer
+from text_recognition.utils.get_config import get_config
 
 
 def create_train_test(config_file):

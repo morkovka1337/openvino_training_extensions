@@ -46,11 +46,11 @@ import torch
 import torch.multiprocessing
 import torch.nn
 import torch.optim as optim
-from im2latex.data.utils import (collate_fn, create_list_of_transforms,
+from text_recognition.data.utils import (collate_fn, create_list_of_transforms,
                                  ctc_greedy_search, get_timestamp)
-from im2latex.data.vocab import END_TOKEN, PAD_TOKEN, read_vocab
-from im2latex.datasets.dataset import BatchRandomSampler, str_to_class
-from im2latex.models.model import TextRecognitionModel
+from text_recognition.data.vocab import END_TOKEN, PAD_TOKEN, read_vocab
+from text_recognition.datasets.dataset import BatchRandomSampler, str_to_class
+from text_recognition.models.model import TextRecognitionModel
 from torch.nn.utils import clip_grad_norm_
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.utils.data import ConcatDataset, DataLoader

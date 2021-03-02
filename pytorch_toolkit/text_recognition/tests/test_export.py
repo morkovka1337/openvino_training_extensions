@@ -18,9 +18,9 @@ import os
 import unittest
 from copy import deepcopy
 
-from im2latex.utils.exporter import Exporter
-from im2latex.utils.evaluator import Evaluator, RunnerType
-from im2latex.utils.get_config import get_config
+from text_recognition.utils.exporter import Exporter
+from text_recognition.utils.evaluator import Evaluator, RunnerType
+from text_recognition.utils.get_config import get_config
 
 
 def create_export_test_case(config_file, expected_outputs):

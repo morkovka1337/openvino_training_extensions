@@ -17,8 +17,8 @@
 import argparse
 import os
 
-from im2latex.utils.get_config import get_config
-from im2latex.utils.evaluator import Evaluator
+from text_recognition.utils.get_config import get_config
+from text_recognition.utils.evaluator import Evaluator
 
 
 def parse_args():
@@ -44,4 +44,4 @@ if __name__ == "__main__":
         result = best_result
     else:
         result = validator.validate()
-    print("Im2latex metric is: {}".format(result))
+    print("Result metric is: {}".format(result))

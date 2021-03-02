@@ -17,8 +17,8 @@
 import argparse
 import sys
 
-from im2latex.utils.get_config import get_config
-from im2latex.utils.trainer import Trainer
+from text_recognition.utils.get_config import get_config
+from text_recognition.utils.trainer import Trainer
 
 
 def parse_args():

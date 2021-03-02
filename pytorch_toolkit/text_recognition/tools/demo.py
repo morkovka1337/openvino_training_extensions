@@ -18,15 +18,15 @@ import argparse
 import os.path
 
 import cv2 as cv
-from im2latex.data.utils import create_list_of_transforms, ctc_greedy_search
-from im2latex.data.vocab import read_vocab
-from im2latex.models.model import TextRecognitionModel
-from im2latex.utils.evaluation_utils import render_routine, check_environment
-from im2latex.utils.get_config import get_config
+from text_recognition.data.utils import create_list_of_transforms, ctc_greedy_search
+from text_recognition.data.vocab import read_vocab
+from text_recognition.models.model import TextRecognitionModel
+from text_recognition.utils.evaluation_utils import render_routine, check_environment
+from text_recognition.utils.get_config import get_config
 import torch
 
 
-class Im2latexDemo:
+class TextRecognitionDemo:
     def __init__(self, config):
         self.config = config
         self.model_path = config.get('model_path')
@@ -62,7 +62,7 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
     demo_config = get_config(args.config, section='demo')
-    demo = Im2latexDemo(demo_config)
+    demo = TextRecognitionDemo(demo_config)
     try:
         check_environment()
     except EnvironmentError:

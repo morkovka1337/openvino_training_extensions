@@ -28,14 +28,14 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 from copy import deepcopy
 
-from im2latex.data.utils import (collate_fn, create_list_of_transforms,
+from text_recognition.data.utils import (collate_fn, create_list_of_transforms,
                                  ctc_greedy_search)
-from im2latex.data.vocab import END_TOKEN, START_TOKEN, read_vocab
-from im2latex.datasets.dataset import str_to_class
-from im2latex.models.model import TextRecognitionModel
-from im2latex.utils.common import (DECODER_INPUTS, DECODER_OUTPUTS,
+from text_recognition.data.vocab import END_TOKEN, START_TOKEN, read_vocab
+from text_recognition.datasets.dataset import str_to_class
+from text_recognition.models.model import TextRecognitionModel
+from text_recognition.utils.common import (DECODER_INPUTS, DECODER_OUTPUTS,
                                    ENCODER_INPUTS, ENCODER_OUTPUTS, read_net)
-from im2latex.utils.evaluation_utils import Im2latexRenderBasedMetric
+from text_recognition.utils.evaluation_utils import Im2latexRenderBasedMetric
 
 spaces = [r'\,', r'\>', r'\;', r'\:', r'\quad', r'\qquad', '~']
 

@@ -21,9 +21,9 @@ import subprocess
 import numpy as np
 import torch
 import torch.onnx
-from im2latex.data.vocab import START_TOKEN, read_vocab
-from im2latex.models.model import TextRecognitionModel
-from im2latex.utils.common import (DECODER_INPUTS, DECODER_OUTPUTS,
+from text_recognition.data.vocab import START_TOKEN, read_vocab
+from text_recognition.models.model import TextRecognitionModel
+from text_recognition.utils.common import (DECODER_INPUTS, DECODER_OUTPUTS,
                                    ENCODER_INPUTS, ENCODER_OUTPUTS)
 
 OPENVINO_DIR = '/opt/intel/openvino_2021'

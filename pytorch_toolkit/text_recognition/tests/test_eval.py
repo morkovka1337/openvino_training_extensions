@@ -15,8 +15,8 @@
 """
 import unittest
 
-from im2latex.utils.evaluator import Evaluator
-from im2latex.utils.get_config import get_config
+from text_recognition.utils.evaluator import Evaluator
+from text_recognition.utils.get_config import get_config
 
 
 def create_evaluation_test_case(config_file, expected_outputs):
