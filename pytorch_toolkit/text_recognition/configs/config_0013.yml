@@ -14,7 +14,7 @@ val_transforms_list:
 device: "cuda"
 num_workers: 0
 use_ctc: true
-model_path: /media/cluster_fs/user/vloginov/im2latex_project/0241/model_checkpoints/accuracy_test_best_model_2021-02-19_20-34-28.pth
+model_path: model_checkpoints/alphanumeric_0013.pth
 vocab_path: vocabs/vocab_alphanumeric_ctc.json
 train:
   batch_size: 64
