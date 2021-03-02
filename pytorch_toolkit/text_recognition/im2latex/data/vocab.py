@@ -74,8 +74,8 @@ class Vocab:
             self.id2sign[self.length] = sign
             self.length += 1
 
-    def add_formula(self, formula):
-        for sign in formula:
+    def add_phrase(self, phrase):
+        for sign in phrase:
             self.add_sign(sign)
 
     def __len__(self):
@@ -101,27 +101,28 @@ class Vocab:
         return " ".join(phrase_converted)
 
 
-def write_vocab(data_dir, as_json=True):
+def write_vocab(data_dir, as_json=True, annotation_file = 'formulas.norm.lst'):
     """
-    traverse training formulas to make vocab
+    traverse training phrases to make vocab
     and store the vocab in the file
     """
     vocab = Vocab()
-    formulas_file = join(data_dir, 'formulas.norm.lst')
-    with open(formulas_file, 'r') as f:
-        formulas = [formula.strip('\n') for formula in f]
+    annotation_path = join(data_dir, annotation_file)
+    with open(annotation_path, 'r') as f:
+        texts = [text.strip('\n') for text in f]
 
-    with open(join(data_dir, 'train_filter.lst'), 'r') as f:
+    train_filter = 'train_filter.lst'
+    with open(join(data_dir, train_filter), 'r') as f:
 
         for line in f:
             _, idx = line.strip('\n').split()
             idx = int(idx)
-            formula = formulas[idx].split()
-            formula_splitted_numbers = []
-            for sign in formula:
-                formula_splitted_numbers += split_number(sign)
+            text = texts[idx].split()
+            text_splitted_numbers = []
+            for sign in text:
+                text_splitted_numbers += split_number(sign)
 
-            vocab.add_formula(formula_splitted_numbers)
+            vocab.add_phrase(text_splitted_numbers)
 
     vocab_file = join(data_dir, 'vocab.{}'.format("json" if as_json else 'pkl'))
     print("Writing Vocab File in ", vocab_file)
