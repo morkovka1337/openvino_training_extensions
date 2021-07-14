@@ -16,7 +16,8 @@ class MobileNet(nn.Module):
         self.features = model.features
         if in_channels == 1:
             first_conv = self.features[0][0]
-            self.features[0][0] = nn.Conv2d(1, first_conv.out_channels, first_conv.kernel_size, first_conv.stride, first_conv.padding, False)
+            self.features[0][0] = nn.Conv2d(1, first_conv.out_channels, first_conv.kernel_size,
+                                            first_conv.stride, first_conv.padding, bias=False)
 
     def forward(self, x):
         x = self.features(x)
