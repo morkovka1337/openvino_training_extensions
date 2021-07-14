@@ -66,13 +66,13 @@ class TextRecognitionModel(nn.Module):
 
     def __init__(self, backbone, out_size, head, transformation):
         super().__init__()
-        bb_out_channels = backbone.get('output_channels', 512)
-        head_in_channels = head.get('encoder_input_size', 512)
-        assert bb_out_channels == head_in_channels, f"""
-        Number of output channels in the backbone ({bb_out_channels}) must be equal
-        to the number of input channels in the head ({head_in_channels}) in case last conv
-        is disabled
-        """
+        # bb_out_channels = backbone.get('output_channels', 512)
+        # head_in_channels = head.get('encoder_input_size', 512)
+        # assert bb_out_channels == head_in_channels, f"""
+        # Number of output channels in the backbone ({bb_out_channels}) must be equal
+        # to the number of input channels in the head ({head_in_channels}) in case last conv
+        # is disabled
+        # """
         head_type = head.pop('type', 'AttentionBasedLSTM')
         backbone_type = backbone.pop('type', 'resnet')
         transformation_type = transformation.pop('type', None)
