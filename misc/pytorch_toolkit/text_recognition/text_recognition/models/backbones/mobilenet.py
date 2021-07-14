@@ -8,7 +8,7 @@ architectures = {
 }
 
 
-class MobileNet(nn.module):
+class MobileNet(nn.Module):
     def __init__(self, arch):
         super().__init__()
         assert arch in architectures.keys(), f'{arch} not in possible options: {architectures.keys()}'
